@@ -29,3 +29,17 @@ export function LogoutBtn() {
     </>
   );
 }
+
+export const TodoButton = ({ id, completed }) => {
+  const deleteHandler = (id) => {
+    alert("deleting todo ..." + id);
+  };
+  return (
+    <>
+      <input type="checkbox" checked={completed} />
+      <button className="btn" onClick={() => deleteHandler(id)}>
+        Delete
+      </button>
+    </>
+  );
+};
