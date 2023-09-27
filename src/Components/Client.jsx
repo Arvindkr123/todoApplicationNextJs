@@ -2,24 +2,37 @@
 
 import Link from "next/link";
 import { createContext, useContext, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 export const context = createContext({ user: {} });
 export const ContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   return (
-    <context.Provider value={{ user, setUser }}>{children}</context.Provider>
+    <context.Provider value={{ user, setUser }}>
+      {children}
+      <Toaster />
+    </context.Provider>
   );
 };
 
 export function LogoutBtn() {
-  const logoutHandler = () => {
-    alert("logout called");
+  const { setUser } = useContext(context);
+  const logoutHandler = async () => {
+    try {
+      const response = await fetch("/api/auth/logout");
+      const data = await response.json();
+      if (!data.success) return toast.error(data.message);
+      setUser({});
+      toast.success(data.message);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   const { user } = useContext(context);
   return (
     <>
-      {!user?.id ? (
+      {!user?._id ? (
         <Link href={"/login"}>Login</Link>
       ) : (
         <button className="btn" onClick={() => logoutHandler()}>
