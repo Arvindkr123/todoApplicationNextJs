@@ -24,7 +24,7 @@ const handler = asyncError(async (req, res) => {
   let hashPassword = await bcrypt.hash(password, 10);
 
   user = await User.create({ email, password: hashPassword, name });
-  const token = generateToken(user._id);
+  const token = generateToken(user?._id);
   cokieSetter(res, token, true);
 
   res.status(201).json({

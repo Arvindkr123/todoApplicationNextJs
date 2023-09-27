@@ -14,7 +14,7 @@ const handler = asyncError(async (req, res) => {
   await Task.create({
     title,
     description,
-    user: user._id,
+    user: user?._id,
   });
   res.json({
     success: true,

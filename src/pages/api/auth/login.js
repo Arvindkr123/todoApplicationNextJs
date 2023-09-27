@@ -25,7 +25,7 @@ const handler = asyncError(async (req, res) => {
     return errorHandler(res, 400, "password does not match");
   }
 
-  const token = generateToken(user._id);
+  const token = generateToken(user?._id);
 
   cokieSetter(res, token, true);
 

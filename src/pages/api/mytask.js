@@ -12,7 +12,7 @@ const handler = asyncError(async (req, res) => {
   if (!user) {
     return errorHandler(res, 401, "Login first required");
   }
-  const tasks = await Task.find({ user: user._id });
+  const tasks = await Task.find({ user: user?._id });
   res.status(200).json({
     success: true,
     tasks,
