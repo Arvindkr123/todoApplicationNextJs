@@ -1,13 +1,14 @@
+import config from "@/Conf/config";
 import { User } from "@/Models/user";
 import { serialize } from "cookie";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 
 export const ConnectDB = async () => {
-  const { connection } = await mongoose.connect(process.env.MONGO_URI, {
+  const { connection } = await mongoose.connect(config.mongo_url, {
     dbName: "NextTodo",
   });
-  console.log(`Database connected on : ${connection.host}`);
+  //console.log(`Database connected on : ${connection.host}`);
 };
 
 export const cokieSetter = (res, token, set) => {
@@ -22,7 +23,7 @@ export const cokieSetter = (res, token, set) => {
 };
 
 export const generateToken = (_id) => {
-  return jwt.sign({ _id }, process.env.jwtSecret);
+  return jwt.sign({ _id }, config.jwt_secret);
 };
 
 export const checkAuth = async (req) => {
@@ -30,7 +31,7 @@ export const checkAuth = async (req) => {
   const cookie = req.headers.cookie;
   if (!cookie) return null;
   const token = cookie.split("=")[1];
-  const decoded_id_of_user = jwt.verify(token, process.env.jwtSecret);
+  const decoded_id_of_user = jwt.verify(token, config.jwt_secret);
   // console.log(decoded_id_of_user);
   return await User.findById(decoded_id_of_user);
 };

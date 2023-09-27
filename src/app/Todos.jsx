@@ -1,9 +1,10 @@
 import { TodoItem } from "@/Components/ServerComponent";
+import config from "@/Conf/config";
 import { cookies } from "next/headers";
 
 const fetchTodo = async (token) => {
   try {
-    const res = await fetch(`${process.env.URL}/api/mytask`, {
+    const res = await fetch(`${config.url}/api/mytask`, {
       cache: "no-cache",
       headers: {
         cookie: `token=${token}`,
