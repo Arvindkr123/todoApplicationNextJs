@@ -35,7 +35,7 @@ const LoginPage = () => {
       toast.error(error.message);
     }
   };
-  if (user._id) return redirect("/");
+  if (user?._id) return redirect("/");
   return (
     <div className="login">
       <section>
