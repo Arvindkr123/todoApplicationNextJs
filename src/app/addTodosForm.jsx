@@ -1,11 +1,13 @@
 "use client";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { context } from "@/Components/Client";
+import { redirect, useRouter } from "next/navigation";
+import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 
-const addTodosForm = () => {
+const AddTodosForm = () => {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
+  const { user } = useContext(context);
   const router = useRouter();
   const onSumbmitHandler = async (e) => {
     e.preventDefault();
@@ -30,6 +32,8 @@ const addTodosForm = () => {
       toast.error(error.message);
     }
   };
+
+  if (!user?._id) return redirect("/login");
   return (
     <div className="login">
       <section>
@@ -54,4 +58,4 @@ const addTodosForm = () => {
   );
 };
 
-export default addTodosForm;
+export default AddTodosForm;
