@@ -7,8 +7,8 @@ import mongoose from "mongoose";
 export const ConnectDB = async () => {
   const { connection } = await mongoose.connect(config.mongo_url, {
     dbName: "NextTodo",
-    useNewUrlParser: true, // Add this option if not already present
-    useUnifiedTopology: true, // Add this option if not already present
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
   });
   console.log(`Database connected on : ${connection.host}`);
 };
@@ -29,11 +29,9 @@ export const generateToken = (_id) => {
 };
 
 export const checkAuth = async (req) => {
-  //console.log(req.headers.cookie.split("=")[1]);
   const cookie = req.headers.cookie;
   if (!cookie) return null;
   const token = cookie.split("=")[1];
   const decoded_id_of_user = jwt.verify(token, config.jwt_secret);
-  // console.log(decoded_id_of_user);
   return await User.findById(decoded_id_of_user);
 };
