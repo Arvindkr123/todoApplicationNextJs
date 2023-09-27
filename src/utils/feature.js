@@ -1,3 +1,4 @@
+import { User } from "@/Models/user";
 import { serialize } from "cookie";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
@@ -22,4 +23,14 @@ export const cokieSetter = (res, token, set) => {
 
 export const generateToken = (_id) => {
   return jwt.sign({ _id }, process.env.jwtSecret);
+};
+
+export const checkAuth = async (req) => {
+  //console.log(req.headers.cookie.split("=")[1]);
+  const cookie = req.headers.cookie;
+  if (!cookie) return null;
+  const token = cookie.split("=")[1];
+  const decoded_id_of_user = jwt.verify(token, process.env.jwtSecret);
+  // console.log(decoded_id_of_user);
+  return await User.findById(decoded_id_of_user);
 };
