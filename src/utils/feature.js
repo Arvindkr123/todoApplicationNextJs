@@ -7,6 +7,8 @@ import mongoose from "mongoose";
 export const ConnectDB = async () => {
   const { connection } = await mongoose.connect(config.mongo_url, {
     dbName: "NextTodo",
+    useNewUrlParser: true, // Add this option if not already present
+    useUnifiedTopology: true, // Add this option if not already present
   });
   console.log(`Database connected on : ${connection.host}`);
 };
