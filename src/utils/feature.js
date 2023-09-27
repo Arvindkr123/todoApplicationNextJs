@@ -8,7 +8,7 @@ export const ConnectDB = async () => {
   const { connection } = await mongoose.connect(config.mongo_url, {
     dbName: "NextTodo",
   });
-  //console.log(`Database connected on : ${connection.host}`);
+  console.log(`Database connected on : ${connection.host}`);
 };
 
 export const cokieSetter = (res, token, set) => {
