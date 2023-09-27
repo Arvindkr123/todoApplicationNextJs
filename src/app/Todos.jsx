@@ -21,7 +21,7 @@ const fetchTodo = async (token) => {
 const Todos = async () => {
   // Get the token from cookies
   const token = cookies().get("token")?.value;
-  
+
   // Fetch tasks and handle potential undefined tasks
   const tasks = await fetchTodo(token);
 

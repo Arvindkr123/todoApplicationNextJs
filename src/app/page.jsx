@@ -1,6 +1,6 @@
 import Form from "./addTodosForm";
 import { Suspense } from "react";
-import Todos from "./todos";
+import Todos from "./Todos";
 
 export default async function Home() {
   return (
